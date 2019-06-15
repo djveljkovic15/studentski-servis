@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formular</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'grupe/formular-za-izbor-style.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+{% if student %}
+    <table>
+
+      <tr>
+        <td>Indeks</td>
+        <td>
+            <select>
+                <option selected value="indeks">{{ student.smer }}</option>
+            </select>
+            <input type="text" name="brindeksa" value="{{ student.broj_indeksa }}">
+            /
+            <select>
+            <option value="godinaUpisa">{{ student.godina_upisa }}</option>
+            </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Ime</td>
+        <td><input type="text" name="ime" value="{{ student.ime }}"></td>
+      </tr>
+
+      <tr>
+        <td>Prezime</td>
+        <td><input type="text" name="prezime" value="{{ student.prezime }}"></td>
+      </tr>
+
+      <tr>
+        <td>Broj do sada ukupno ostvarenih ESPB</td>
+        <td><input type="text" name="ostvareni" value=""></td>
+      </tr>
+      <tr>
+         {% for n in semestar1 %}
+            <td>Skolske {{ n.skolska_godina_pocetak }}/{{ n.skolska_godina_kraj }} godine upisujem ESPB</td>
+         {% endfor %}
+        <td><input type="text" name="upisuje" value=""></td>
+      </tr>
+      <tr>
+        <td>Broj do sada polozenih ispita</td>
+        <td><input type="text" name="polozio" value=""></td>
+      </tr>
+      <tr>
+        <td>Semestar</td>
+
+          {% for n in semestar1 %}
+            {% if n.vrsta == "neparni"  %}
+                <td>
+          | <input type="radio" name="semestar" value="1"> 1
+          | <input type="radio" name="semestar" value="3"> 3
+          | <input type="radio" name="semestar" value="5"> 5
+          | <input type="radio" name="semestar" value="7"> 7
+          |
+        </td>
+        {% else %}
+        <td>
+          | <input type="radio" name="semestar" value="2"> 2
+          | <input type="radio" name="semestar" value="4"> 4
+          | <input type="radio" name="semestar" value="6"> 6
+          | <input type="radio" name="semestar" value="8"> 8
+          |
+        </td>
+            {% endif %}
+          {% endfor %}
+
+
+
+      </tr>
+      <tr>
+        <td>Prvi put upisujem semestar</td>
+        <td>
+          <input type="radio" name="upis" value="da"> Da
+          <input type="radio" name="upis" value="ne"> Ne
+        </td>
+      </tr>
+      <tr>
+        <td>Grupa koju student bira</td>
+        <td>Izaberite prvo semestar<br>
+            <a href="http://127.0.0.1:8000/studserviceapp/programgrupa/{{ student.nalog.username }}">"Program grupa"</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Nepolozeni predmeti iz prethodnih godina</td>
+        <td>
+            <textarea name="message" rows="10" cols="30"></textarea>
+            <select size=9, multiple>
+                {% for n in predmet %}
+                    <option  value="indeks">{{ n.naziv }}</option>
+                {% endfor %}
+            </select><br><button type="button1">Dodaj</button>
+
+        </td>
+
+      </tr>
+      <tr>
+        <td>Nacin placanja skolarine</td>
+        <td>
+            <input type="radio" name="upis" value="odjednom"> Odjednom
+            <input type="radio" name="upis" value="narate"> Na rate
+            <input type="radio" name="upis" value="stipendista"> Stipendista
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td><button type="button2">Sacuvaj</button> </td>
+      </tr>
+
+</table>
+{% else %}
+    <p>Student je popunio tabelu.</p>
+{% endif %}
+</body>
+</html>

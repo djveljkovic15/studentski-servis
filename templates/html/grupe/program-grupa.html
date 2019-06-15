@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Program grupa</title>
+</head>
+<body>
+{% if izbornegrupe %}
+<table>
+    <thead>
+        <tr>
+            <th>Oznaka grupe</th>
+            <th>Oznaka semestra</th>
+            <th>Kapacitet</th>
+            <th>Smer</th>
+            <th>Aktivna</th>
+            <th>Semestar</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for n in izbornegrupe %}
+            <tr>
+                <td>{{ n.oznaka_grupe }}</td>
+                <td>{{ n.oznaka_semestra}}</td>
+                <td>{{ n.kapacitet }}</td>
+                <td>{{ n.smer }}</td>
+                <td>{{ n.aktivna }}</td>
+                <td>{{ n.za_semestar }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+    <p>Nema izabranih grupa u bazi</p>
+{% endif %}
+</body>
+</html>

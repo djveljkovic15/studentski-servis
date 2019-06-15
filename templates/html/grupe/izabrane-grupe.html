@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spisak studenata</title>
+
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'korisnici/raspored-style.css' %}">
+    <script src="{% static 'korisnici/raspored-script.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'meni-style.css' %}">
+    <title>Izabrane grupe</title>
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    {% if izabranaGrupa %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Ostvareno ESPB</th>
+                    <th>Upisuje ESPB</th>
+                    <th>Broj polozenih ispita</th>
+                    <th>Upisuje semestar</th>
+                    <th>Nacin placanja</th>
+                    <th>Upisan</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for izbor in izabranaGrupa %}
+                    <td>{{ izbor.student.ime }} {{ izbor.student.prezime }}</td>
+                    <td>{{ izbor.ostvarenoESPB }}</td>
+                    <td>{{ izbor.upisujeESPB }}</td>
+                    <td>{{ izbor.broj_polozenih_ispita }}</td>
+                    <td>{{ izbor.upisuje_semestar }}</td>
+                    <td>{{ izbor.nacin_placanja }}</td>
+                    <td>{{ izbor.upisan }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nema izabranih grupa u bazi</p>
+    {% endif %}
+</body>
+</html>

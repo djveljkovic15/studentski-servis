@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studservice</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'korisnici/studentpodaci-style.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    <div class="tabla">
+        {% if student.slika %}
+            <img src="{% static slika %}" alt="Slika nije pronadjena">
+        {% else %}
+            <img src="{% static 'default_user.png' %}" alt="Slika nije pronadjena">
+        {% endif %}
+        <h1>{{ student.ime }} {{ student.prezime }}</h1>
+        <p style="margin-bottom: 30px">
+            {{ student.smer }} {{ student.broj_indeksa }} / {{ student.godina_upisa }}, Grupa {{ grupa.oznaka_grupe }}
+        </p>
+
+        <form action="/studserviceapp/slika/{{ student.nalog.username }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="slika" name="slika" type="file">
+            <button>Uploaduj sliku</button>
+        </form>
+    </div>
+</body>
+</html>

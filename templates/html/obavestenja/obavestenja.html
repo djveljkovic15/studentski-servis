@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Obavestenja</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'obavestenja/obavestenja-style.css' %}">
+</head>
+<body>
+    {% if meni %}
+        {% include 'html/meni.html' %}
+    {% endif %}
+
+    {% if obavestenja %}
+        <div class="tabla">
+            <h2>Obavestenja</h2>
+            {% for o in obavestenja %}
+                <p>{{ o.datum_postavljanja }}</p>
+                <p>Postavio: {{ o.postavio.username }} </p>
+                <p style="padding-left: 10px">{{ o.tekst }}</p>
+                {% if o.fajl %}
+{#                    <a>Fajl je dodat samo jos ne znam sta cu sa njim</a>#}
+                    <a href="/studserviceapp/media/{{ o.fajl.name }}" download>{{ o.fajl.name }}</a>
+                {% endif %}
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="tabla">
+            <h2>Obavestenja</h2>
+            <p>Trenutno nema obavestenja</p>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'index-style.css' %}">
+</head>
+<body>
+    <!--suppress HtmlUnknownTarget -->
+    <form id="login" action="login" method="post">
+        {% csrf_token %}
+        <input id="username" name="username" type="text" placeholder="username" required>
+        <input id="password" name="password" type="password" placeholder="password">
+        <button>Login</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'grupe/izborna-grupa-style.css' %}">
+    <script src="{% static 'korisnici/raspored-script.js' %}"></script>
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    {% if izbornegrupe %}
+        <div class="filter-wrapper">
+            <input type="text" id="filter" name="filter" placeholder="Filter" onkeyup="filter()">
+        </div>
+
+        <div id="table-scroll">
+            <table id="table">
+                <thead>
+                <tr>
+                    <th>Oznaka grupe</th>
+                    <th>Oznaka semestra</th>
+                    <th>Kapacitet</th>
+                    <th>Smer</th>
+                    <th>Aktivna</th>
+                    <th>Semestar</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for grupa in izbornegrupe %}
+                    <tr>
+                        {% if sekretar %}
+                            <td><a href="{% url 'korisnici' grupa.oznaka_grupe sekretar.nalog.username %}">{{ grupa.oznaka_grupe }}</a></td>
+                        {% elif administrator %}
+                            <td><a href="{% url 'korisnici' grupa.oznaka_grupe administrator.nalog.username%}">{{ grupa.oznaka_grupe }}</a></td>
+                        {% endif %}
+                        <td>{{ grupa.oznaka_semestra}}</td>
+                        <td>{{ grupa.kapacitet }}</td>
+                        <td>{{ grupa.smer }}</td>
+                        <td>{{ grupa.aktivna }}</td>
+                        <td>{{ grupa.za_semestar }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>Nema izbornih grupa u bazi</p>
+    {% endif %}
+</body>
+</html>

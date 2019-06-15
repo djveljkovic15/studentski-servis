@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meni</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'meni-style.css' %}">
+</head>
+<body>
+    {% if student %}
+        <ul>
+            <li><a href="{% url 'raspored' student.nalog.username %}">Pocetna</a></li>
+            <li><a href="{% url 'ceoraspored' student.nalog.username %}">Raspored nastave</a></li>
+            <li><a href="{% url 'studentpodaci' student.nalog.username %}">Podaci studenta</a></li>
+            <li><a href="{% url 'formular' student.nalog.username %}">Izbor grupe</a></li>
+            <li><a href="{% url 'podacioupisu' student.nalog.username %}">Podaci o upisu</a></li>
+            <li style="float:right"><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+    {% endif %}
+
+    {% if nastavnik %}
+        <ul>
+            <li><a href="{% url 'raspored' nastavnik.nalog.username %}">Pocetna</a></li>
+            <li><a href="{% url 'ceoraspored' nastavnik.nalog.username %}">Raspored nastave</a></li>
+            <li><a href="{% url 'pregledgrupaprofesora' nastavnik.nalog.username %}">Spisak grupa</a></li>
+            <li><a href="{% url 'mail sistem' nastavnik.nalog.username %}">Mail</a></li>
+            <li style="float:right"><a href="{% url 'index' %}">Logout</a></li>
+        </ul>
+    {% endif %}
+
+    {% if sekretar %}
+        <div class="navbar">
+            <a href="{% url 'raspored' sekretar.nalog.username %}">Pocetna</a>
+            <a href="{% url 'mail sistem' sekretar.nalog.username %}">Mail</a>
+            <a href="{% url 'spisakstudenata' sekretar.nalog.username%}">Spisak studenata</a>
+            <div class="dropdown">
+                <button class="dropbtn">Obavestenja
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'unosobavestenja' sekretar.nalog.username %}">Unos</a>
+                    <a href="{% url 'svaobavestenja' sekretar.nalog.username %}">Pregled</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Izborne grupe
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'unosizbornegrupe' sekretar.nalog.username %}">Unos</a>
+                    <a href="{% url 'pregledizbornihgrupa' sekretar.nalog.username %}">Pregled</a>
+                    <!-- OVDE SAM STAO LOSE JE URADJENOOOOOOOO-->
+                    <a href="{% url 'unosizbornegrupe' sekretar.nalog.username %}">Izmeni grupe</a>
+                </div>
+            </div>
+            <a style="float: right" href="{% url 'index' %}">Logout</a>
+        </div>
+    {% endif %}
+
+    {% if administrator %}
+        <div class="navbar">
+            <a href="{% url 'raspored' administrator.nalog.username %}">Pocetna</a>
+            <a href="{% url 'spisakstudenata' administrator.nalog.username%}">Spisak studenata</a>
+            <a href="{% url 'izabranegrupe' administrator.nalog.username%}">Izabrane grupe</a>
+            <div class="dropdown">
+                <button class="dropbtn">Izborne grupe
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'unosizbornegrupe' administrator.nalog.username %}">Unos</a>
+                    <a href="{% url 'pregledizbornihgrupa' administrator.nalog.username %}">Pregled</a>
+                    <a href="{% url 'podacioupisu' administrator.nalog.username %}">Podaci o upisu studenta</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Obavestenja
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'unosobavestenja' administrator.nalog.username %}">Unos</a>
+                    <a href="{% url 'svaobavestenja' administrator.nalog.username %}">Pregled</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Upload
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'uploadrasporeda' administrator.nalog.username %}">Raspored predavanja</a>
+                    <a href="{% url 'uploadkolokvijuma' administrator.nalog.username %}">Kolokvijumska nedelja</a>
+                    <a href="{% url 'uploadispita' administrator.nalog.username %}">Ispitni rok</a>
+                </div>
+            </div>
+            <a style="float: right" href="{% url 'index' %}">Logout</a>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,54 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#table-scroll {
+    /*height: 400px;*/
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    overflow: auto;
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    background-color: #3498db;
+    color: #FFF;
+}
+
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.filter-wrapper {
+    width: 100%;
+}
+
+.filter-wrapper input {
+    width: 100%;
+    height: 32px;
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    color: #000;
+    border: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zadatak</title>
+</head>
+<body>
+
+    {% if nastavnik %}
+        {% for nast in nastavnik %}
+           {% ifchanged %}
+            <label>{{ nast.ime }} {{ nast.prezime }}</label><br>
+            {% endifchanged %}
+        {% endfor %}
+    {% endif %}
+
+
+</body>
+</html>

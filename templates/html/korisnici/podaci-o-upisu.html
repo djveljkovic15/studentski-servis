@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Podaci o upisu</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'korisnici/podaci-o-upisu.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+    {% if izabrana_grupa %}
+        <div class="text-wrapper">
+            {% for grp in izabrana_grupa %}
+                <h2> {{ grp.student.ime }} {{ grp.student.prezime }} ({{ grp.student.nalog.username }})</h2>
+                <label>Nepolozeni predmeti: {{ predmet.naziv }}</label><br>
+                {% for predmet in grp.nepolozeni_predmeti.all%}
+                    <label class="label123">{{ predmet.naziv }}</label><br>
+                {% endfor %}
+                <p>Upisuje ESPB: {{ grp.upisujeESPB }}</p><br>
+                <p>Upisuje semestar: {{ grp.upisuje_semestar }}</p><br>
+                <p>Izabrana grupa: {{ grp.izabrana_grupa.oznaka_grupe }}</p><br>
+                <p>Nacin placanja: {{ grp.nacin_placanja }}</p><br>
+            {% endfor %}
+        </div>
+    {% elif administrator %}
+        <form id="nalog" action="/studserviceapp/podacioupisuform/{{ administrator.nalog.username }}" method="post">
+            {% csrf_token %}
+            <h1>Provera izabrane grupe</h1>
+            <input id="nalog" name="nalog" type="text" placeholder="nalog" required>
+            <button> Proveri </button>
+        </form>
+    {% else %}
+                <p>{{ student.ime }}  nije izabrao grupu.</p>
+    {% endif %}
+</body>
+</html>

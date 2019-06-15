@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Izborne grupe</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'grupe/unos-izborne-grupe.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    <!--suppress HtmlUnknownTarget -->
+    <form id="izborna_grupa_form" action="/studserviceapp/unosizbornegrupeform" method="post">
+        {% csrf_token %}
+        <label for="oznaka_grupe">Oznaka grupe (za unos vise grupa oznake odvojite razmakom)</label>
+        <input id="oznaka_grupe" name="oznaka_grupe" type="text" required>
+
+        <label for="oznaka_semestra">Oznaka semestra</label>
+        <input id="oznaka_semestra" name="oznaka_semestra" type="number" required>
+
+        <label for="kapacitet">Kapacitet</label>
+        <input id="kapacitet" name="kapacitet" type="number" required>
+
+        <label for="smer">Smer</label>
+        <input id="smer" name="smer" type="text" required>
+
+        <label for="semestar">Za semestar</label>
+        <select id="semestar" name="semestar" required>
+            {% for semestar in semestri %}
+                <option value="{{ semestar }}">{{ semestar }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="predmeti">Predmeti</label>
+        <select id="predmeti" name="predmeti" multiple required>
+            {% for predmet in predmeti %}
+                <option value="{{ predmet.naziv }}">{{ predmet.naziv }}</option>
+            {% endfor %}
+        </select>
+
+        <input id="aktivna" name="aktivna" type="checkbox">
+        <label for="aktivna">Aktivna</label>
+
+        <button>Upload</button>
+    </form>
+</body>
+</html>

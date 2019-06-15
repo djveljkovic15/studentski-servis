@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spisak studenata</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'korisnici/spisak-studenata-style.css' %}">
+    <script src="{% static 'korisnici/raspored-script.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'meni-style.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Slika</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Broj indeksa</th>
+                <th>Godina upisa</th>
+                <th>Smer</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for student in studenti %}
+                <tr>
+                    {% if student.slika %}
+                        <td><img src="{% static student.slika.name %}" alt="Slika nije pronadjena"></td>
+                    {% else %}
+                        <td><img src="{% static 'default_user.png' %}" alt="Slika nije pronadjena"></td>
+                    {% endif %}
+                    <td>{{ student.ime }}</td>
+                    <td>{{ student.prezime }}</td>
+                    <td>{{ student.broj_indeksa }}</td>
+                    <td>{{ student.godina_upisa }}</td>
+                    <td>{{ student.smer }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mail sistem</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'mail/mail-sistem-style.css' %}">
+</head>
+<body>
+    <div class="meni">
+        {% include 'html/meni.html' %}
+    </div>
+    <!--suppress HtmlUnknownTarget -->
+    <form action="/studserviceapp/mailform" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {% if nalog.uloga == 'nastavnik' %}
+                <div>
+                    <label for="primaoci_nastavnika"></label>
+                </div>
+                <select id="primaoci_nastavnika" name="primaoci_nastavnika" size = 3 required>
+                    {% for data in combobox_nastavnika %}
+                        <option  value={{ data }}>{{ data }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <div>
+                    <label for="primaoci_administratora"></label>
+                </div>
+                <select id="primaoci_administratora" name="primaoci_administratora" required>
+                    {% for data in combobox_administratora %}
+                        <option value={{ data }}>{{ data }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div>
+            <input id="posiljaoc" name="posiljaoc" type="text" placeholder="Ime i prezime posiljaoca"
+                   maxlength="100" required value={{ ime_administratora }}>
+        </div>
+        <div>
+            <input id="posiljaoc_mail" name="posiljaoc_mail" type="text" placeholder="Mail posiljaoca"
+                   maxlength="100" required value={{ mail }}>
+        </div>
+        <div>
+            <input id="subject" name="subject" type="text" placeholder="Subject" maxlength="100" required>
+        </div>
+        <div>
+            <textarea id="message" name="message" placeholder="Sadrzaj"></textarea>
+        </div>
+        <div>
+            <input id="attachment" name="attachment" type="file">
+            <button style="height: 35px">Send</button>
+        </div>
+    </form>
+</body>
+</html>

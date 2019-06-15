@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Obavestenja</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'upload/upload-kolokvijum.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    <!--suppress HtmlUnknownTarget -->
+    <form id="input" action="/studserviceapp/uploadkolokvijumform" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Upload kolokvijuma</h1>
+        <input id="attachment" name="attachment" type="file">
+        <button>Upload</button>
+    </form>
+</body>
+</html>

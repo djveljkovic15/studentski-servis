@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studenti</title>
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'korisnici/studenti-iz-grupe-style.css' %}">
+    <script src="{% static 'korisnici/raspored-script.js' %}"></script>
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    {% if studenti %}
+        <div class="filter-wrapper">
+            <input type="text" id="filter" name="filter" placeholder="Filter" onkeyup="filter()">
+        </div>
+
+        <div class="table-scroll">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th>Slika</th>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Broj indeksa</th>
+                        <th>Godina upisa</th>
+                        <th>Smer</th>
+                        <th>Grupa</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for student in studenti %}
+                        <tr>
+                            {% if student.slika %}
+                                <td><img src="{% static student.slika.name %}" alt="Slika nije pronadjena"></td>
+                            {% else %}
+                                <td><img src="{% static 'default_user.png' %}" alt="Slika nije pronadjena"></td>
+                            {% endif %}
+                            <td>{{ student.ime }}</td>
+                            <td>{{ student.prezime }}</td>
+                            <td>{{ student.broj_indeksa }}</td>
+                            <td>{{ student.godina_upisa }}</td>
+                            <td>{{ student.smer }}</td>
+                            <td>{{ igrupa.oznaka_grupe }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Nema studenta u bazi</p>
+    {% endif %}
+</body>
+</html>

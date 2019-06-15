@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Obavestenja</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'obavestenja/unos-obavestenja-style.css' %}">
+</head>
+<body>
+    {% include 'html/meni.html' %}
+
+    <!--suppress HtmlUnknownTarget -->
+    <form id="input" action="/studserviceapp/unosobavestenjaform" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if administrator %}
+            <input id="postavio" name="postavio" type="text" placeholder="postavio"
+                   value="{{ administrator.nalog.username }}" required>
+        {% elif sekretar %}
+            <input id="postavio" name="postavio" type="text" placeholder="postavio"
+                   value="{{ sekretar.nalog.username }}" required>
+        {% endif %}
+        <textarea id="tekst" name="tekst" placeholder="tekst" required></textarea>
+        <input id="file" name="file" type="file">
+        <button>Upload</button>
+    </form>
+</body>
+</html>
